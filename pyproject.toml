@@ -2,7 +2,7 @@
 name = "med_augment"
 version = "0.1"
 authors = [
-  { name="lunovian, email="nxan2911@gmail.com },
+  { name = "lunovian", email = "nxan2911@gmail.com" },
 ]
 description = "**MedAugment** is a Python library designed for data augmentation in medical imaging, tailored specifically to modalities like MRI, CT, and X-ray. By simulating realistic clinical variations through domain-specific transformations, MedAugment enhances dataset diversity, helping to build more robust machine learning and deep learning models in medical AI."
 readme = "README.md"
