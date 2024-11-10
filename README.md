@@ -54,4 +54,4 @@ Feel free to contribute! Fork the repository, make your changes, and submit a pu
 
 ## License
 
-MedAugment is licensed under the MIT License.
+MedAugment is licensed under the Apache-2.0 License.
