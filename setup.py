@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='MedAugment',
-    version='0.1',
+    name='med_augment',
+    version='0.1.1',
     description='A Medical Imaging Augmentation Library',
     author='lunovian',
     license='Apache-2.0',
