@@ -1,5 +1,5 @@
 [project]
-name = "MedAugment"
+name = "med_augment"
 version = "0.1"
 authors = [
   { name="lunovian, email="nxan2911@gmail.com },
