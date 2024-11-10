@@ -1,4 +1,3 @@
-# src/medical_augmentation.py
 from .augmentations.elastic_deformation import elastic_deformation
 from .augmentations.intensity_scaling import intensity_scaling
 from .augmentations.gaussian_blur import gaussian_blur
@@ -13,8 +12,31 @@ class MedicalAugmentation:
         pass
 
     def apply_augmentations(self, image, **kwargs):
-        # Example application logic for chaining augmentations
-        if kwargs.get('elastic_deformation', False):
-            image = elastic_deformation(image)
-        # Repeat for other augmentations based on kwargs
+        """
+        Applies a series of augmentations to the image based on provided parameters.
+        
+        Parameters:
+        - image (np.array): Input image to be augmented.
+        - kwargs (dict): Dictionary of augmentation options and parameters.
+        
+        Returns:
+        - np.array: Augmented image.
+        """
+        if kwargs.get('elastic_deformation'):
+            image = elastic_deformation(image, **kwargs['elastic_deformation'])
+        if kwargs.get('intensity_scaling'):
+            image = intensity_scaling(image, **kwargs['intensity_scaling'])
+        if kwargs.get('gaussian_blur'):
+            image = gaussian_blur(image, **kwargs['gaussian_blur'])
+        if kwargs.get('random_rotation'):
+            image = random_rotation(image, **kwargs['random_rotation'])
+        if kwargs.get('flip'):
+            image = flip(image, **kwargs['flip'])
+        if kwargs.get('random_crop_and_scale'):
+            image = random_crop_and_scale(image, **kwargs['random_crop_and_scale'])
+        if kwargs.get('add_noise'):
+            image = add_noise(image, **kwargs['add_noise'])
+        if kwargs.get('occlusion'):
+            image = occlusion(image, **kwargs['occlusion'])
+        
         return image
