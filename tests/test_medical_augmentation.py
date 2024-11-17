@@ -2,7 +2,7 @@
 
 import unittest
 import numpy as np
-from src.medical_augmentation import MedicalAugmentation
+from src.med_augment.medical_augmentation import MedicalAugmentation
 
 
 class TestMedicalAugmentation(unittest.TestCase):

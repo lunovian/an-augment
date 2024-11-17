@@ -1,6 +1,6 @@
 import cv2
 import matplotlib.pyplot as plt
-import MedAugment  # Import directly from the installed package
+from MedAugment.med_augment import MedicalAugmentation  # Import directly from the package
 
 # Load the image
 image = cv2.imread("images/mri.jpg", cv2.IMREAD_GRAYSCALE) / 255.0
@@ -28,9 +28,12 @@ plt.figure(figsize=(12, 6))
 plt.subplot(1, 2, 1)
 plt.title("Original Image")
 plt.imshow(image, cmap="gray")
+plt.axis("off")
 
 plt.subplot(1, 2, 2)
 plt.title("Augmented Image")
 plt.imshow(augmented_image, cmap="gray")
+plt.axis("off")
 
+plt.tight_layout()
 plt.show()
