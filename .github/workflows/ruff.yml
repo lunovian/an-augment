@@ -43,4 +43,4 @@ jobs:
       - name: Run Ruff Linting
         run: |
           echo "Running Ruff..."
-          ruff . # Specify the root directory of your project
+          ruff src # Specify the root directory of your project
