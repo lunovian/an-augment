@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-def random_crop_and_scale(image, crop_size=(0.8, 0.8), scaling_factor=1.0):
+def random_crop(image, crop_size=(0.8, 0.8), scaling_factor=1.0):
     """
     Randomly crops a portion of the image and scales it to the original size.
     

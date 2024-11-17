@@ -1,6 +1,6 @@
 import numpy as np
 
-def flip(image, flip_horizontal=True, flip_vertical=False):
+def flip(image, horizontal=True):
     """
     Flips the image horizontally, vertically, or both, based on the parameters.
     
@@ -12,8 +12,8 @@ def flip(image, flip_horizontal=True, flip_vertical=False):
     Returns:
     - np.array: Flipped image based on specified parameters.
     """
-    if flip_horizontal:
+    if horizontal:
         image = np.fliplr(image)  # Horizontal flip
-    if flip_vertical:
+    else:
         image = np.flipud(image)  # Vertical flip
     return image

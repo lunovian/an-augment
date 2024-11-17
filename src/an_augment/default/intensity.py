@@ -1,6 +1,6 @@
 import numpy as np
 
-def intensity_scaling(image, brightness_factor=1.0, contrast_factor=1.0):
+def intensity(image, brightness_factor=1.0, contrast_factor=1.0):
     """
     Adjusts brightness and contrast of a given image.
     
