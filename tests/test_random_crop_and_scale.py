@@ -1,31 +1,42 @@
-# tests/test_random_crop_and_scale.py
+"""
+Unit tests for the `random_rotation` function in the MedAugment library.
+
+These tests validate the functionality of applying random rotations to medical images.
+"""
+
 import unittest
 import numpy as np
-from src.augmentations.random_crop_and_scale import random_crop_and_scale
+from src.med_augment.augmentations.random_rotation import random_rotation
 
-class TestRandomCropAndScale(unittest.TestCase):
+
+class TestRandomRotation(unittest.TestCase):
+    """
+    Test suite for the `random_rotation` function.
+    """
+
     def setUp(self):
+        """
+        Set up a test image for use in all test cases.
+        """
         # Create a test image (e.g., 128x128 pixels with random values)
         self.image = np.random.rand(128, 128)
 
     def test_output_shape(self):
-        # Check if the output shape matches the input shape
-        cropped_scaled_image = random_crop_and_scale(self.image, crop_size=(0.8, 0.8), scaling_factor=1.0)
-        self.assertEqual(self.image.shape, cropped_scaled_image.shape)
+        """
+        Test if the output shape matches the input shape.
+        """
+        rotated_image = random_rotation(self.image, angle_range=(-30, 30))
+        self.assertEqual(self.image.shape, rotated_image.shape)
 
-    def test_crop_size_effect(self):
-        # Test with different crop sizes
-        cropped_image_small = random_crop_and_scale(self.image, crop_size=(0.5, 0.5))
-        cropped_image_large = random_crop_and_scale(self.image, crop_size=(0.9, 0.9))
+    def test_angle_range_effect(self):
+        """
+        Test the effect of different angle ranges on rotation.
+        """
+        rotated_image_low = random_rotation(self.image, angle_range=(-15, 15))
+        rotated_image_high = random_rotation(self.image, angle_range=(-90, 90))
         # Ensure the images are different
-        self.assertFalse(np.array_equal(cropped_image_small, cropped_image_large))
+        self.assertFalse(np.array_equal(rotated_image_low, rotated_image_high))
 
-    def test_scaling_factor_effect(self):
-        # Test with different scaling factors
-        scaled_image_low = random_crop_and_scale(self.image, crop_size=(0.8, 0.8), scaling_factor=0.5)
-        scaled_image_high = random_crop_and_scale(self.image, crop_size=(0.8, 0.8), scaling_factor=1.5)
-        # Ensure the images are different
-        self.assertFalse(np.array_equal(scaled_image_low, scaled_image_high))
 
 if __name__ == "__main__":
     unittest.main()
