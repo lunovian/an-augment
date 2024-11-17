@@ -73,7 +73,7 @@ Here is an example of the original image and the augmented result:
 
 | Original Image                     | Augmented Image                     |
 |------------------------------------|-------------------------------------|
-| ![Original Image](images/mri.jpg)  | ![Augmented Image](images/left_mri.png) |
+| ![Original Image](images/right_mri.jpg)  | ![Augmented Image](images/left_mri.png) |
 
 For other domains (e.g., mechanical or environmental), the process is similar—just import the relevant augmentation module (e.g., `MechanicalAugmentation`, `EnvironmentalAugmentation`, etc.).
 
