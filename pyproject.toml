@@ -1,18 +1,23 @@
 [project]
-name = "med_augment"
+name = "an_augment"
 version = "0.1"
-authors = [
-  { name = "lunovian", email = "nxan2911@gmail.com" },
-]
-description = "**MedAugment** is a Python library designed for data augmentation in medical imaging, tailored specifically to modalities like MRI, CT, and X-ray. By simulating realistic clinical variations through domain-specific transformations, MedAugment enhances dataset diversity, helping to build more robust machine learning and deep learning models in medical AI."
+authors = [{ name = "lunovian", email = "nxan2911@gmail.com" }]
+description = """
+**AnAugment** is a Python library designed for diverse data augmentation needs, 
+spanning multiple domains such as medical imaging, mechanical simulations, environmental data, 
+and water systems. By offering domain-specific transformations, AnAugment enhances dataset diversity, 
+enabling the development of more robust machine learning and deep learning models across industries.
+"""
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
 ]
 
 [project.urls]
-Homepage = "https://github.com/lunovian/MedAugment"
-Issues = "https://github.com/lunovian/MedAugment/issues"
+Homepage = "https://github.com/lunovian/an-augment"
+Issues = "https://github.com/lunovian/an-augment/issues"
+Documentation = "https://github.com/lunovian/an-augment/wiki"
+Source = "https://github.com/lunovian/an-augment"
