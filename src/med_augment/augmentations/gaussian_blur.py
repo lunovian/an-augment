@@ -1,4 +1,3 @@
-import numpy as np
 from scipy.ndimage import gaussian_filter
 
 def gaussian_blur(image, blur_radius=1):
