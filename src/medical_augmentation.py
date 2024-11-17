@@ -1,13 +1,13 @@
 """Initialize the MedicalAugmentation class."""
 
-from .augmentations.elastic_deformation import elastic_deformation
-from .augmentations.intensity_scaling import intensity_scaling
-from .augmentations.gaussian_blur import gaussian_blur
-from .augmentations.random_rotation import random_rotation
-from .augmentations.flip import flip
-from .augmentations.random_crop_and_scale import random_crop_and_scale
-from .augmentations.add_noise import add_noise
-from .augmentations.occlusion import occlusion
+from src.med_augment.augmentations.elastic_deformation import elastic_deformation
+from src.med_augment.augmentations.intensity_scaling import intensity_scaling
+from src.med_augment.augmentations.gaussian_blur import gaussian_blur
+from src.med_augment.augmentations.random_rotation import random_rotation
+from src.med_augment.augmentations.flip import flip
+from src.med_augment.augmentations.random_crop_and_scale import random_crop_and_scale
+from src.med_augment.augmentations.add_noise import add_noise
+from src.med_augment.augmentations.occlusion import occlusion
 
 
 class MedicalAugmentation:
