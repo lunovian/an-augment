@@ -1,7 +1,7 @@
 # tests/test_random_rotation.py
 import unittest
 import numpy as np
-from src.augmentations.random_rotation import random_rotation
+from src.med_augment.augmentations.random_rotation import random_rotation
 
 class TestRandomRotation(unittest.TestCase):
     def setUp(self):
