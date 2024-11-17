@@ -2,7 +2,7 @@
 
 import unittest
 import numpy as np
-from src.med_augment.augmentations.add_noise import add_noise
+from src.an_augment.medical.add_noise import add_noise
 
 
 class TestAddNoise(unittest.TestCase):

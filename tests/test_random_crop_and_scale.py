@@ -6,7 +6,7 @@ These tests validate the functionality of applying random rotations to medical i
 
 import unittest
 import numpy as np
-from src.med_augment.augmentations.random_rotation import random_rotation
+from src.an_augment.medical.random_rotation import random_rotation
 
 
 class TestRandomRotation(unittest.TestCase):

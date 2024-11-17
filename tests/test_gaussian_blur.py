@@ -6,7 +6,7 @@ These tests validate the functionality of applying Gaussian blur to medical imag
 
 import unittest
 import numpy as np
-from src.med_augment.augmentations.gaussian_blur import gaussian_blur
+from src.an_augment.medical.gaussian_blur import gaussian_blur
 
 
 class TestGaussianBlur(unittest.TestCase):
