@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      # Step 3: Cache pip dependencies
+      # Step 3: Cache dependencies for faster runs
       - name: Cache pip dependencies
         uses: actions/cache@v3
         with:
@@ -43,4 +43,4 @@ jobs:
       - name: Run Ruff Linting
         run: |
           echo "Running Ruff..."
-          ruff check . # Use the `check` subcommand for linting
+          ruff . # Specify the root directory of your project
