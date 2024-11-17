@@ -18,7 +18,7 @@
 To install **AN-Augment**, clone the repository and install the requirements:
 
 ```bash
-git clone https://github.com/yourusername/an-augment.git
+git clone https://github.com/lunovian/an-augment.git
 cd an-augment
 pip install -r requirements.txt
 ```

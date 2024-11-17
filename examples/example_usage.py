@@ -1,6 +1,6 @@
 import cv2
 import matplotlib.pyplot as plt
-from  import MedicalAugmentation
+from medical.medical_augmentation import MedicalAugmentation
 
 # Load the image
 image = cv2.imread("images/mri.jpg", cv2.IMREAD_GRAYSCALE) / 255.0
