@@ -7,7 +7,7 @@ vertically, or both.
 
 import unittest
 import numpy as np
-from src.an_augment.medical.flip import flip
+from an_augment.default.flip import flip
 
 
 class TestFlip(unittest.TestCase):

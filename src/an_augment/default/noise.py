@@ -1,6 +1,6 @@
 import numpy as np
 
-def add_noise(image, noise_type='gaussian', noise_intensity=0.05):
+def noise(image, noise_type='gaussian', noise_intensity=0.05):
     """
     Adds noise to the image to simulate different scanning conditions.
     
