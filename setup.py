@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name="anaug",
     version="0.1.0",
-    description="AnAugment: A Python library for diverse data augmentation.",
+    description="An-Augment: A Python library for diverse data augmentation.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     author="lunovian",
