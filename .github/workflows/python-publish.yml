@@ -14,7 +14,7 @@ jobs:
     steps:
       # Step 1: Checkout repository
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       # Step 2: Set up Python environment
       - name: Set up Python
@@ -43,7 +43,7 @@ jobs:
 
       # Step 6: Publish to PyPI
       - name: Publish Package
-        uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
+        uses: pypa/gh-action-pypi-publish@v1.8.6
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
