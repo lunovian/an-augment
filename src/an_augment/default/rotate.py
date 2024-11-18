@@ -1,17 +1,18 @@
-import cv2
+import numpy as np
+from scipy.ndimage import rotate as scipy_rotate
 
 def rotate(image, angle):
     """
-    Rotate an image by a given angle.
+    Rotate the image by the specified angle.
     
-    Args:
-        image (numpy.ndarray): Input image.
-        angle (float): Rotation angle in degrees.
-        
+    Parameters:
+    - image (np.array): Input image as a 2D or 3D numpy array.
+    - angle (float): Angle by which to rotate the image.
+    
     Returns:
-        numpy.ndarray: Rotated image.
+    - np.array: Rotated image.
     """
-    (h, w) = image.shape[:2]
-    center = (w // 2, h // 2)
-    matrix = cv2.getRotationMatrix2D(center, angle, 1.0)
-    return cv2.warpAffine(image, matrix, (w, h))
+    if not isinstance(angle, (int, float)):
+        raise ValueError("Angle must be a numeric value.")
+    
+    return scipy_rotate(image, angle, reshape=False, mode='nearest')

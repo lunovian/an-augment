@@ -6,7 +6,7 @@ These tests validate the functionality of applying occlusion to medical images.
 
 import unittest
 import numpy as np
-from an_augment.default.occlusion import occlusion
+from src.an_augment.default.occlusion import occlusion
 
 
 class TestOcclusion(unittest.TestCase):

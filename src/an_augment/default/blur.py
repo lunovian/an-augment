@@ -1,14 +1,20 @@
-from scipy.ndimage import gaussian_filter
+from scipy.ndimage import gaussian_filter, uniform_filter
 
-def gaussian_blur(image, blur_radius=1):
+def blur(image, blur_type='gaussian', blur_radius=1):
     """
-    Applies Gaussian blur to a given image.
+    Applies blur to a given image.
     
     Parameters:
     - image (np.array): Input image as a 2D or 3D numpy array.
-    - blur_radius (float): Standard deviation for Gaussian kernel. Higher values increase blur.
+    - blur_type (str): Type of blur to apply ('gaussian' or 'uniform').
+    - blur_radius (float): Standard deviation for Gaussian kernel or size for uniform filter. Higher values increase blur.
 
     Returns:
     - np.array: Blurred image with the same shape as input.
     """
-    return gaussian_filter(image, sigma=blur_radius)
+    if blur_type == 'gaussian':
+        return gaussian_filter(image, sigma=blur_radius)
+    elif blur_type == 'uniform':
+        return uniform_filter(image, size=blur_radius)
+    else:
+        raise ValueError("Unsupported blur type. Use 'gaussian' or 'uniform'.")

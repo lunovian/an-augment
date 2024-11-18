@@ -1,13 +1,13 @@
-"""Test the output shape of the function."""
+"""Test the output shape of the blur function."""
 
 import unittest
 import numpy as np
-from an_augment.default.noise import add_noise
+from src.an_augment.default.blur import blur
 
 
-class TestAddNoise(unittest.TestCase):
+class TestBlur(unittest.TestCase):
     """
-    Test suite for the `add_noise` function.
+    Test suite for the `blur` function.
     """
 
     def setUp(self):
@@ -16,25 +16,23 @@ class TestAddNoise(unittest.TestCase):
         self.image = np.random.rand(128, 128)
 
     def test_output_shape(self):
-        """Test if the output shape matches the input shape for Gaussian noise."""
-        noisy_image = add_noise(
-            self.image, noise_type='gaussian', noise_intensity=0.1
-        )
-        self.assertEqual(self.image.shape, noisy_image.shape)
+        """Test if the output shape matches the input shape after blur."""
+        blurred_image = blur(self.image, blur_type='gaussian', blur_radius=1)
+        self.assertEqual(self.image.shape, blurred_image.shape)
 
-    def test_gaussian_noise(self):
-        """Test if Gaussian noise alters the image."""
-        noisy_image = add_noise(
-            self.image, noise_type='gaussian', noise_intensity=0.1
-        )
-        self.assertFalse(np.array_equal(self.image, noisy_image))
+    def test_blur_effect(self):
+        """Test if blur alters the image."""
+        blurred_image = blur(self.image, blur_type='gaussian', blur_radius=1)
+        self.assertFalse(np.array_equal(self.image, blurred_image))
 
-    def test_salt_and_pepper_noise(self):
-        """Test if salt-and-pepper noise alters the image."""
-        noisy_image = add_noise(
-            self.image, noise_type='salt_and_pepper', noise_intensity=0.05
-        )
-        self.assertFalse(np.array_equal(self.image, noisy_image))
+    def test_different_blur_types(self):
+        """Test if blur works with different blur types."""
+        blurred_image_gaussian = blur(self.image, blur_type='gaussian', blur_radius=1)
+        blurred_image_uniform = blur(self.image, blur_type='uniform', blur_radius=3)
+        self.assertEqual(self.image.shape, blurred_image_gaussian.shape)
+        self.assertEqual(self.image.shape, blurred_image_uniform.shape)
+        self.assertFalse(np.array_equal(self.image, blurred_image_gaussian))
+        self.assertFalse(np.array_equal(self.image, blurred_image_uniform))
 
 
 if __name__ == "__main__":

@@ -1,39 +1,52 @@
+"""Test the output shape and functionality of the rotate function."""
+
 import unittest
 import numpy as np
-import cv2
-from an_augment.default.rotate import rotate
+from src.an_augment.default.rotate import rotate
+
 
 class TestRotate(unittest.TestCase):
-    """Test cases for the rotate function."""
+    """
+    Test suite for the `rotate` function.
+    """
 
     def setUp(self):
-        """Set up test fixtures before each test method."""
-        # Create a simple test image
-        self.test_image = np.zeros((100, 100, 3), dtype=np.uint8)
-        cv2.rectangle(self.test_image, (25, 25), (75, 75), (255, 255, 255), -1)
+        """Set up a test image for use in all test cases."""
+        # Create a test image (128x128)
+        self.image = np.random.rand(128, 128)
 
     def test_rotate_90_degrees(self):
-        """Test rotating image by 90 degrees."""
-        rotated = rotate(self.test_image, 90)
-        self.assertEqual(rotated.shape, self.test_image.shape)
-        self.assertTrue(np.any(rotated != self.test_image))
+        """Test if the image is rotated by 90 degrees."""
+        rotated_image = rotate(self.image, angle=90)
+        expected_image = np.rot90(self.image, k=1)
+        self.assertTrue(np.allclose(rotated_image, expected_image, atol=1e-6))
 
-    def test_rotate_360_degrees(self):
-        """Test rotating image by 360 degrees should give similar result."""
-        rotated = rotate(self.test_image, 360)
-        np.testing.assert_array_almost_equal(rotated, self.test_image)
+    def test_rotate_180_degrees(self):
+        """Test if the image is rotated by 180 degrees."""
+        rotated_image = rotate(self.image, angle=180)
+        expected_image = np.rot90(self.image, k=2)
+        self.assertTrue(np.allclose(rotated_image, expected_image, atol=1e-6))
 
-    def test_rotate_0_degrees(self):
-        """Test rotating image by 0 degrees should return same image."""
-        rotated = rotate(self.test_image, 0)
-        np.testing.assert_array_equal(rotated, self.test_image)
+    def test_rotate_270_degrees(self):
+        """Test if the image is rotated by 270 degrees."""
+        rotated_image = rotate(self.image, angle=270)
+        expected_image = np.rot90(self.image, k=3)
+        self.assertTrue(np.allclose(rotated_image, expected_image, atol=1e-6))
 
-    def test_image_dimensions(self):
-        """Test if output image maintains same dimensions as input."""
-        angles = [45, 90, 180, 270]
-        for angle in angles:
-            rotated = rotate(self.test_image, angle)
-            self.assertEqual(rotated.shape, self.test_image.shape)
+    def test_rotate_arbitrary_angle(self):
+        """Test if the image is rotated by an arbitrary angle."""
+        angle = 45
+        rotated_image = rotate(self.image, angle=angle)
+        # Since we can't easily predict the exact result of an arbitrary rotation,
+        # we can check properties like shape and type.
+        self.assertEqual(rotated_image.shape, self.image.shape)
+        self.assertEqual(rotated_image.dtype, self.image.dtype)
 
-if __name__ == '__main__':
+    def test_invalid_angle(self):
+        """Test if the function raises a ValueError for invalid angles."""
+        with self.assertRaises(ValueError):
+            rotate(self.image, angle='invalid')
+
+
+if __name__ == "__main__":
     unittest.main()

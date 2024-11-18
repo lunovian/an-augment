@@ -1,7 +1,6 @@
 import unittest
 import numpy as np
-import cv2
-from an_augment.default.scale import scale
+from src.an_augment.default.scale import scale
 
 class TestScale(unittest.TestCase):
     """Test cases for the scale augmentation function"""

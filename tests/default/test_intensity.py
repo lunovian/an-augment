@@ -7,7 +7,7 @@ for medical images.
 
 import unittest
 import numpy as np
-from an_augment.default.intensity import intensity
+from src.an_augment.default.intensity import intensity
 
 
 class TestIntensityScaling(unittest.TestCase):

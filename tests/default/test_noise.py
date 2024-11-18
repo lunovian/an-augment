@@ -1,10 +1,10 @@
 import unittest
 import numpy as np
-from an_augment.default.noise import noise
+from src.an_augment.default.noise import noise
 
 """Unit tests for the noise addition functions in an_augment.default.noise.py."""
 
-class TestAddNoise(unittest.TestCase):
+class TestNoise(unittest.TestCase):
 
     def setUp(self):
         # Create a sample image for testing

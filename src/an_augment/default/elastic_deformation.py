@@ -13,6 +13,9 @@ def elastic_deformation(image, alpha=34, sigma=4):
     Returns:
     - np.array: Deformed image with the same shape as input.
     """
+    if alpha <= 0 or sigma <= 0:
+        raise ValueError("Alpha and sigma must be positive values.")
+
     random_state = np.random.RandomState(None)
     shape = image.shape
 

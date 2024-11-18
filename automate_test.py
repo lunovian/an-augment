@@ -34,7 +34,7 @@ def run_command(command, description=""):
 def install_dependencies():
     """Ensure required dependencies are installed."""
     run_command(f"{sys.executable} -m pip install --upgrade pip", "Upgrading pip")
-    run_command(f"{sys.executable} -m pip install build pytest", "Installing required tools")
+    run_command(f"{sys.executable} -m pip install build pytest pytest-cov", "Installing required tools")
 
 
 def build_package():
@@ -70,10 +70,10 @@ def install_package(package_path, extra_params=""):
 
 
 def run_tests():
-    """Run tests using pytest."""
+    """Run tests using pytest recursively through all test folders."""
     run_command(
-        f"{sys.executable} -m pytest tests/ --maxfail=3 --disable-warnings",
-        "Running tests with pytest"
+        f"{sys.executable} -m pytest tests/ -v --maxfail=3 --disable-warnings",
+        "Running tests with pytest in all test folders"
     )
 
 

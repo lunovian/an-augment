@@ -1,8 +1,8 @@
-"""Test the output shape of the function."""
+"""Test the output shape and functionality of the elastic_deformation function."""
 
 import unittest
 import numpy as np
-from an_augment.default.elastic_deformation import elastic_deformation
+from src.an_augment.default.elastic_deformation import elastic_deformation
 
 
 class TestElasticDeformation(unittest.TestCase):
@@ -16,35 +16,21 @@ class TestElasticDeformation(unittest.TestCase):
         self.image = np.random.rand(128, 128)
 
     def test_output_shape(self):
-        """Test if the output shape matches the input shape."""
+        """Test if the output shape matches the input shape after elastic deformation."""
         deformed_image = elastic_deformation(self.image, alpha=34, sigma=4)
         self.assertEqual(self.image.shape, deformed_image.shape)
 
-    def test_alpha_effect(self):
-        """Test the effect of varying alpha on the deformation."""
-        deformed_image_low_alpha = elastic_deformation(
-            self.image, alpha=10, sigma=4
-        )
-        deformed_image_high_alpha = elastic_deformation(
-            self.image, alpha=50, sigma=4
-        )
-        # Check that images differ, as alpha affects displacement
-        self.assertFalse(
-            np.array_equal(deformed_image_low_alpha, deformed_image_high_alpha)
-        )
+    def test_deformation_effect(self):
+        """Test if elastic deformation alters the image."""
+        deformed_image = elastic_deformation(self.image, alpha=34, sigma=4)
+        self.assertFalse(np.array_equal(self.image, deformed_image))
 
-    def test_sigma_effect(self):
-        """Test the effect of varying sigma on the deformation."""
-        deformed_image_low_sigma = elastic_deformation(
-            self.image, alpha=34, sigma=2
-        )
-        deformed_image_high_sigma = elastic_deformation(
-            self.image, alpha=34, sigma=6
-        )
-        # Check that images differ, as sigma affects smoothness
-        self.assertFalse(
-            np.array_equal(deformed_image_low_sigma, deformed_image_high_sigma)
-        )
+    def test_invalid_parameters(self):
+        """Test if elastic deformation handles invalid parameters correctly."""
+        with self.assertRaises(ValueError):
+            elastic_deformation(self.image, alpha=-34, sigma=4)
+        with self.assertRaises(ValueError):
+            elastic_deformation(self.image, alpha=34, sigma=-4)
 
 
 if __name__ == "__main__":
