@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="an-augment",
+    name="anaugment",
     version="0.1.0",
     description="AnAugment: A Python library for diverse data augmentation.",
     long_description=open("README.md").read(),
