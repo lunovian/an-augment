@@ -16,12 +16,11 @@ def motion_blur(image, length=5, angle=0):
     """
     kernel = np.zeros((length, length))
     center = length // 2
-    radians = np.deg2rad(angle)
-    x = int(center + np.cos(radians) * center)
-    y = int(center + np.sin(radians) * center)
-    
+
+    # Set the kernel along the motion direction
     kernel[center, :] = 1
     kernel /= kernel.sum()
+
     return cv2.filter2D(image, -1, kernel)
 
 def blur(image, blur_type='gaussian', blur_radius=1, **kwargs):
