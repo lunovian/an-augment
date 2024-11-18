@@ -1,5 +1,3 @@
-"""Test the output shape of the blur function."""
-
 import unittest
 import numpy as np
 from src.an_augment.default.blur import blur
@@ -29,10 +27,26 @@ class TestBlur(unittest.TestCase):
         """Test if blur works with different blur types."""
         blurred_image_gaussian = blur(self.image, blur_type='gaussian', blur_radius=1)
         blurred_image_uniform = blur(self.image, blur_type='uniform', blur_radius=3)
+        blurred_image_median = blur(self.image, blur_type='median', blur_radius=3)
+
         self.assertEqual(self.image.shape, blurred_image_gaussian.shape)
         self.assertEqual(self.image.shape, blurred_image_uniform.shape)
+        self.assertEqual(self.image.shape, blurred_image_median.shape)
+
         self.assertFalse(np.array_equal(self.image, blurred_image_gaussian))
         self.assertFalse(np.array_equal(self.image, blurred_image_uniform))
+        self.assertFalse(np.array_equal(self.image, blurred_image_median))
+
+    def test_motion_blur(self):
+        """Test if motion blur applies correctly."""
+        blurred_image_motion = blur(self.image, blur_type='motion', length=10, angle=45)
+        self.assertEqual(self.image.shape, blurred_image_motion.shape)
+        self.assertFalse(np.array_equal(self.image, blurred_image_motion))
+
+    def test_invalid_blur_type(self):
+        """Test if an unsupported blur type raises a ValueError."""
+        with self.assertRaises(ValueError):
+            blur(self.image, blur_type='invalid')
 
 
 if __name__ == "__main__":
