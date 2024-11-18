@@ -1,4 +1,4 @@
-name: SLSA generic generator
+name: slsa-publish
 
 on:
   workflow_dispatch:

@@ -1,4 +1,5 @@
 # AN-Augment
+[![Upload Python Package](https://github.com/lunovian/an-augment/actions/workflows/python-publish.yml/badge.svg)](https://github.com/lunovian/an-augment/actions/workflows/python-publish.yml)
 
 **AN-Augment** (**Advanced and Novel Augmentation**) is a Python library designed to provide **cutting-edge** and **innovative** data augmentation techniques across multiple domains. Whether you're working with medical imaging, mechanical simulations, environmental data, or water systems, **AN-Augment** delivers **advanced** and **novel** transformations to enrich dataset diversity and improve the robustness of machine learning and deep learning models.
 

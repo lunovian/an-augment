@@ -1,4 +1,4 @@
-name: Check Python package
+name: package-check
 
 on:
   push:
