@@ -14,13 +14,19 @@ def motion_blur(image, length=5, angle=0):
     Returns:
     - np.array: Motion-blurred image.
     """
+    # Create an empty kernel
     kernel = np.zeros((length, length))
     center = length // 2
 
-    # Set the kernel along the motion direction
-    kernel[center, :] = 1
-    kernel /= kernel.sum()
+    # Set a line along the motion direction
+    kernel[center, :] = 1  # Horizontal line in the kernel
+    kernel /= kernel.sum()  # Normalize the kernel to maintain brightness
 
+    # Rotate the kernel to the specified angle
+    M = cv2.getRotationMatrix2D((center, center), angle, 1)
+    kernel = cv2.warpAffine(kernel, M, (length, length))
+
+    # Apply the motion blur kernel to the image
     return cv2.filter2D(image, -1, kernel)
 
 def blur(image, blur_type='gaussian', blur_radius=1, **kwargs):
