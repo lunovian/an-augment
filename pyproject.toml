@@ -1,34 +1,3 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-[project]
-name = "an_augment"
-version = "0.1.0"
-authors = [{ name = "lunovian", email = "nxan2911@gmail.com" }]
-description = """
-**AnAugment** is a Python library designed for diverse data augmentation needs, 
-spanning multiple domains such as medical imaging, mechanical simulations, environmental data, 
-and water systems. By offering domain-specific transformations, AnAugment enhances dataset diversity, 
-enabling the development of more robust machine learning and deep learning models across industries.
-"""
-readme = "README.md"
-requires-python = ">=3.8"
-dependencies = ["numpy>=1.19.0", "scipy>=1.5.0", "opencv-python>=4.5.0"]
-classifiers = [
-  "Programming Language :: Python :: 3",
-  "License :: OSI Approved :: MIT License",
-  "Operating System :: OS Independent",
-]
-
-[project.urls]
-Homepage = "https://github.com/lunovian/an-augment"
-Issues = "https://github.com/lunovian/an-augment/issues"
-Documentation = "https://github.com/lunovian/an-augment/wiki"
-Source = "https://github.com/lunovian/an-augment"
-
-[tool.hatch.build.targets.sdist]
-include = ["src", "README.md", "LICENSE", "pyproject.toml"]
-
-[tool.hatch.metadata]
-dynamic = []
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
