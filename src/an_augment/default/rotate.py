@@ -1,4 +1,3 @@
-import numpy as np
 from scipy.ndimage import rotate as scipy_rotate
 
 def rotate(image, angle):
