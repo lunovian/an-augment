@@ -9,6 +9,8 @@ from .default.random_rotation import random_rotation
 from .default.rotate import rotate
 from .default.scale import scale
 
+from .medical.random_lesion import random_lesion
+
 # Define all accessible modules and functions
 __all__ = [
     "blur",
@@ -20,5 +22,6 @@ __all__ = [
     "occlusion",
     "random_rotation",
     "rotate",
-    "scale"
+    "scale",
+    "random_lesion",
 ]
