@@ -24,8 +24,8 @@ def random_lesion(
     - np.ndarray: Image with the generated lesion.
     """
     # Validate inputs
-    if len(image.shape) != 2:
-        raise ValueError("Input image must be a 2D numpy array.")
+    if image.ndim != 2:
+        raise ValueError("Input image must be a 2D numpy array. 3D arrays are not allowed.")
     if shape not in ['circle', 'ellipse', 'irregular']:
         raise ValueError("Shape must be one of 'circle', 'ellipse', or 'irregular'.")
     if intensity_range[0] >= intensity_range[1]:
