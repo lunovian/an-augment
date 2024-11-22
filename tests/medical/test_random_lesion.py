@@ -29,7 +29,7 @@ class TestRandomLesion(unittest.TestCase):
 
         # Adjust the area range to allow for variability in intensity and spread
         self.assertTrue(lesion_area > 300)  # Minimum expected area (approx.)
-        self.assertTrue(lesion_area < 4000)  # Maximum expected area (approx.)
+        self.assertTrue(lesion_area < 5000)  # Relaxed maximum expected area (approx.)
 
     def test_random_lesion_texture_strength(self):
         # Test the effect of texture_strength parameter

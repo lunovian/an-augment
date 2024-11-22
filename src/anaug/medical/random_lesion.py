@@ -24,7 +24,7 @@ def random_lesion(
     - np.ndarray: Image with the generated lesion.
     """
     # Validate inputs
-    if image.ndim != 2:
+    if not isinstance(image, np.ndarray) or image.ndim != 2:
         raise ValueError("Input image must be a 2D numpy array. 3D arrays are not allowed.")
     if shape not in ['circle', 'ellipse', 'irregular']:
         raise ValueError("Shape must be one of 'circle', 'ellipse', or 'irregular'.")
@@ -47,12 +47,12 @@ def random_lesion(
     x, y = np.meshgrid(np.arange(image.shape[1]), np.arange(image.shape[0]))
     if shape == 'circle':
         lesion = np.exp(-((x - center_x)**2 + (y - center_y)**2) / (2 * size**2))
-        lesion = lesion / np.max(lesion)  # Normalize lesion values
+        lesion = lesion / np.max(lesion)  # Normalize lesion intensity to [0, 1]
     elif shape == 'ellipse':
         size_y = size
         size_x = size * np.random.uniform(0.5, 1.5)  # Randomize x-to-y ratio
         lesion = np.exp(-(((x - center_x)**2 / (2 * size_x**2)) + ((y - center_y)**2 / (2 * size_y**2))))
-        lesion = lesion / np.max(lesion)  # Normalize lesion values
+        lesion = lesion / np.max(lesion)  # Normalize lesion intensity to [0, 1]
     elif shape == 'irregular':
         lesion = np.random.uniform(-1, 1, image.shape)
         lesion = gaussian_filter(lesion, sigma=size / 2)
