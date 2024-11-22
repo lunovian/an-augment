@@ -1,6 +1,6 @@
 import numpy as np
 
-def noise(image, noise_type='gaussian', noise_intensity=0.05):
+def noise(image, noise_type='gaussian', noise_intensity=0.05, **kwargs):
     """
     Adds noise to the image to simulate different scanning conditions.
     
@@ -47,6 +47,12 @@ def noise(image, noise_type='gaussian', noise_intensity=0.05):
         noisy_image[tuple(coords_pepper)] = 0
 
         return noisy_image
-    
+
+    elif noise_type == 'poisson':
+        # Poisson noise
+        scale = kwargs.get('scale', 1.0)
+        noisy_image = np.random.poisson(image * scale) / float(scale)
+        return np.clip(noisy_image, 0, 1)
+
     else:
         raise ValueError("Unsupported noise type. Use 'gaussian' or 'salt_and_pepper'.")
