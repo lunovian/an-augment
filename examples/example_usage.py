@@ -1,6 +1,6 @@
 import cv2
 import matplotlib.pyplot as plt
-from an_augment.default import scale, flip, noise, random_rotation, random_crop, intensity, elastic_deformation, occlusion, blur
+from anaug.default import scale, flip, noise, random_rotation, random_crop, intensity, elastic_deformation, occlusion, blur
 
 # Load the image
 image_path = "images/mri.jpg"

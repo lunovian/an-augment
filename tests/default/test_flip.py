@@ -2,7 +2,7 @@
 
 import unittest
 import numpy as np
-from src.an_augment.default.flip import flip
+from src.anaug.default.flip import flip
 
 
 class TestFlip(unittest.TestCase):

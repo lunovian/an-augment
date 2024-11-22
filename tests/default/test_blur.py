@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from src.an_augment.default.blur import blur
+from src.anaug.default.blur import blur
 
 
 class TestBlur(unittest.TestCase):

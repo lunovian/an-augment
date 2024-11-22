@@ -2,7 +2,7 @@
 
 import unittest
 import numpy as np
-from src.an_augment.default.elastic_deformation import elastic_deformation
+from src.anaug.default.elastic_deformation import elastic_deformation
 
 
 class TestElasticDeformation(unittest.TestCase):

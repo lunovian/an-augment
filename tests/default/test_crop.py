@@ -2,7 +2,7 @@
 
 import unittest
 import numpy as np
-from src.an_augment.default.crop import crop
+from src.anaug.default.crop import crop
 
 
 class TestCrop(unittest.TestCase):

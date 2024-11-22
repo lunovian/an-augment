@@ -2,7 +2,7 @@
 
 import unittest
 import numpy as np
-from src.an_augment.default.rotate import rotate
+from src.anaug.default.rotate import rotate
 
 
 class TestRotate(unittest.TestCase):

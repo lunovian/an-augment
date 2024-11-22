@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from src.an_augment.default.noise import noise
+from src.anaug.default.noise import noise
 
 """Unit tests for the noise addition functions in an_augment.default.noise.py."""
 
