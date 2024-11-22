@@ -28,10 +28,15 @@ def random_lesion(
         raise ValueError("Input image must be a 2D numpy array.")
     if shape not in ['circle', 'ellipse', 'irregular']:
         raise ValueError("Shape must be one of 'circle', 'ellipse', or 'irregular'.")
+    if intensity_range[0] >= intensity_range[1]:
+        raise ValueError("Invalid intensity_range: minimum value must be less than maximum value.")
+    if size_range[0] >= size_range[1]:
+        raise ValueError("Invalid size_range: minimum value must be less than maximum value.")
 
     # Generate lesion properties
     intensity = np.random.uniform(*intensity_range)
     size = np.random.randint(*size_range)
+
     if location is None:
         center_x = np.random.randint(size, image.shape[1] - size)
         center_y = np.random.randint(size, image.shape[0] - size)
@@ -42,10 +47,12 @@ def random_lesion(
     x, y = np.meshgrid(np.arange(image.shape[1]), np.arange(image.shape[0]))
     if shape == 'circle':
         lesion = np.exp(-((x - center_x)**2 + (y - center_y)**2) / (2 * size**2))
+        lesion = lesion / np.max(lesion)  # Normalize lesion values
     elif shape == 'ellipse':
         size_y = size
         size_x = size * np.random.uniform(0.5, 1.5)  # Randomize x-to-y ratio
         lesion = np.exp(-(((x - center_x)**2 / (2 * size_x**2)) + ((y - center_y)**2 / (2 * size_y**2))))
+        lesion = lesion / np.max(lesion)  # Normalize lesion values
     elif shape == 'irregular':
         lesion = np.random.uniform(-1, 1, image.shape)
         lesion = gaussian_filter(lesion, sigma=size / 2)
