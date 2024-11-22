@@ -18,7 +18,7 @@ To apply medical augmentations, initialize the `MedicalAugmentation` class and s
 
 Example:
 ```python
-from an_augment.medical.medical_augmentation import MedicalAugmentation
+from anaug.medical import random_lesion
 
 augmentor = MedicalAugmentation()
 augmented_image = augmentor.apply_augmentations(
