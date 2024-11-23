@@ -1,7 +1,6 @@
 import numpy as np
 from scipy.ndimage import gaussian_filter
-from typing import Tuple, Optional, List
-import cv2
+from typing import Tuple, Optional
 
 def generate_perlin_noise(shape: Tuple[int, int], scale: float = 10.0, seed: Optional[int] = None) -> np.ndarray:
     """
@@ -18,9 +17,7 @@ def generate_perlin_noise(shape: Tuple[int, int], scale: float = 10.0, seed: Opt
     if seed is not None:
         np.random.seed(seed)
     height, width = shape
-    delta = (scale / height, scale / width)
     d = (height // int(scale), width // int(scale))
-    grid_x, grid_y = np.mgrid[0:d[0]+1, 0:d[1]+1]
     gradients = np.random.rand(d[0]+1, d[1]+1, 2) * 2 - 1
     gradients /= np.linalg.norm(gradients, axis=2, keepdims=True) + 1e-10
 
