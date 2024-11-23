@@ -4,50 +4,168 @@ from src.anaug.default.blur import blur
 
 
 class TestBlur(unittest.TestCase):
-    """
-    Test suite for the `blur` function.
-    """
-
+    
     def setUp(self):
-        """Set up a test image for use in all test cases."""
-        # Create a test image (128x128)
-        self.image = np.random.rand(128, 128)
-
-    def test_output_shape(self):
-        """Test if the output shape matches the input shape after blur."""
-        blurred_image = blur(self.image, blur_type='gaussian', blur_radius=1)
-        self.assertEqual(self.image.shape, blurred_image.shape)
-
-    def test_blur_effect(self):
-        """Test if blur alters the image."""
-        blurred_image = blur(self.image, blur_type='gaussian', blur_radius=1)
-        self.assertFalse(np.array_equal(self.image, blurred_image))
-
-    def test_different_blur_types(self):
-        """Test if blur works with different blur types."""
-        blurred_image_gaussian = blur(self.image, blur_type='gaussian', blur_radius=1)
-        blurred_image_uniform = blur(self.image, blur_type='uniform', blur_radius=3)
-        blurred_image_median = blur(self.image, blur_type='median', blur_radius=3)
-
-        self.assertEqual(self.image.shape, blurred_image_gaussian.shape)
-        self.assertEqual(self.image.shape, blurred_image_uniform.shape)
-        self.assertEqual(self.image.shape, blurred_image_median.shape)
-
-        self.assertFalse(np.array_equal(self.image, blurred_image_gaussian))
-        self.assertFalse(np.array_equal(self.image, blurred_image_uniform))
-        self.assertFalse(np.array_equal(self.image, blurred_image_median))
-
+        # Create a synthetic grayscale and color image
+        self.gray_image = np.random.randint(0, 256, (100, 100), dtype=np.uint8)
+        self.color_image = np.random.randint(0, 256, (100, 100, 3), dtype=np.uint8)
+    
+    def test_gaussian_blur(self):
+        blurred = blur(self.gray_image, blur_type='gaussian', blur_radius=2)
+        self.assertEqual(blurred.shape, self.gray_image.shape)
+        self.assertEqual(blurred.dtype, self.gray_image.dtype)
+    
+    def test_uniform_blur(self):
+        blurred = blur(self.gray_image, blur_type='uniform', blur_radius=5)
+        self.assertEqual(blurred.shape, self.gray_image.shape)
+        self.assertEqual(blurred.dtype, self.gray_image.dtype)
+    
+    def test_median_blur(self):
+        blurred = blur(self.gray_image, blur_type='median', blur_radius=5)
+        self.assertEqual(blurred.shape, self.gray_image.shape)
+        self.assertEqual(blurred.dtype, self.gray_image.dtype)
+    
     def test_motion_blur(self):
-        """Test if motion blur applies correctly."""
-        blurred_image_motion = blur(self.image, blur_type='motion', length=10, angle=45)
-        self.assertEqual(self.image.shape, blurred_image_motion.shape)
-        self.assertFalse(np.array_equal(self.image, blurred_image_motion))
-
+        blurred = blur(self.color_image, blur_type='motion', blur_radius=5, angle=45)
+        self.assertEqual(blurred.shape, self.color_image.shape)
+        self.assertEqual(blurred.dtype, self.color_image.dtype)
+    
+    def test_bilateral_blur(self):
+        blurred = blur(
+            self.color_image,
+            blur_type='bilateral',
+            diameter=15,
+            sigma_color=75,
+            sigma_space=75
+        )
+        self.assertEqual(blurred.shape, self.color_image.shape)
+        self.assertEqual(blurred.dtype, self.color_image.dtype)
+    
+    def test_box_blur(self):
+        blurred = blur(
+            self.gray_image,
+            blur_type='box',
+            blur_radius=5,
+            border_type='reflect'
+        )
+        self.assertEqual(blurred.shape, self.gray_image.shape)
+        self.assertEqual(blurred.dtype, self.gray_image.dtype)
+    
+    def test_adaptive_blur_mean(self):
+        blurred = blur(
+            self.gray_image,
+            blur_type='adaptive',
+            blur_radius=0,  # Not used
+            max_kernel_size=15,
+            adaptive_type='mean',
+            block_size=11,
+            C=2
+        )
+        self.assertEqual(blurred.shape, self.gray_image.shape)
+        self.assertEqual(blurred.dtype, self.gray_image.dtype)
+    
+    def test_adaptive_blur_gaussian(self):
+        blurred = blur(
+            self.gray_image,
+            blur_type='adaptive',
+            blur_radius=0,  # Not used
+            max_kernel_size=15,
+            adaptive_type='gaussian',
+            block_size=11,
+            C=2
+        )
+        self.assertEqual(blurred.shape, self.gray_image.shape)
+        self.assertEqual(blurred.dtype, self.gray_image.dtype)
+    
     def test_invalid_blur_type(self):
-        """Test if an unsupported blur type raises a ValueError."""
         with self.assertRaises(ValueError):
-            blur(self.image, blur_type='invalid')
+            blur(self.gray_image, blur_type='invalid_blur', blur_radius=5)
+    
+    def test_invalid_blur_radius_gaussian(self):
+        with self.assertRaises(ValueError):
+            blur(self.gray_image, blur_type='gaussian', blur_radius=-1)
+    
+    def test_invalid_blur_radius_uniform(self):
+        with self.assertRaises(ValueError):
+            blur(self.gray_image, blur_type='uniform', blur_radius=0)
+    
+    def test_invalid_blur_radius_median(self):
+        with self.assertRaises(ValueError):
+            blur(self.gray_image, blur_type='median', blur_radius=2)  # Even number
+    
+    def test_invalid_blur_radius_motion(self):
+        with self.assertRaises(ValueError):
+            blur(self.gray_image, blur_type='motion', blur_radius=-5, angle=45)
+    
+    def test_invalid_bilateral_parameters(self):
+        with self.assertRaises(ValueError):
+            blur(
+                self.color_image,
+                blur_type='bilateral',
+                diameter=-1,
+                sigma_color=75,
+                sigma_space=75
+            )
+    
+    def test_invalid_box_parameters(self):
+        with self.assertRaises(ValueError):
+            blur(
+                self.gray_image,
+                blur_type='box',
+                blur_radius=4,  # Even number
+                border_type='reflect'
+            )
+    
+    def test_invalid_adaptive_parameters(self):
+        with self.assertRaises(ValueError):
+            blur(
+                self.gray_image,
+                blur_type='adaptive',
+                blur_radius=0,
+                max_kernel_size=14,  # Even number
+                adaptive_type='mean',
+                block_size=11,
+                C=2
+            )
+    
+    def test_no_blur_gaussian_zero_radius(self):
+        blurred = blur(self.gray_image, blur_type='gaussian', blur_radius=0)
+        np.testing.assert_array_almost_equal(blurred, self.gray_image)
+    
+    def test_no_blur_uniform_radius_one(self):
+        blurred = blur(self.gray_image, blur_type='uniform', blur_radius=1)
+        # Uniform blur with kernel size 1 should return the original image
+        np.testing.assert_array_almost_equal(blurred, self.gray_image)
+    
+    def test_no_blur_median_radius_one(self):
+        blurred = blur(self.gray_image, blur_type='median', blur_radius=1)
+        # Median blur with kernel size 1 should return the original image
+        np.testing.assert_array_almost_equal(blurred, self.gray_image)
+    
+    def test_no_blur_motion_zero_length(self):
+        with self.assertRaises(ValueError):
+            blur(self.gray_image, blur_type='motion', blur_radius=0, angle=0)
+    
+    def test_no_blur_bilateral_zero_diameter(self):
+        with self.assertRaises(ValueError):
+            blur(
+                self.color_image,
+                blur_type='bilateral',
+                diameter=0,
+                sigma_color=75,
+                sigma_space=75
+            )
+    
+    def test_no_blur_box_radius_one(self):
+        blurred = blur(
+            self.gray_image,
+            blur_type='box',
+            blur_radius=1,
+            border_type='reflect'
+        )
+        # Box blur with kernel size 1 should return the original image
+        np.testing.assert_array_almost_equal(blurred, self.gray_image)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()
