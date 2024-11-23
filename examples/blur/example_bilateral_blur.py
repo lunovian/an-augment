@@ -1,6 +1,6 @@
 import cv2
 import matplotlib.pyplot as plt
-from anaug.default import blur  # Adjust the import path as necessary
+from anaug.default import blur
 
 # Load a sample color image
 image_path = "images/mri.jpg"

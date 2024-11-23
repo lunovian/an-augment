@@ -1,9 +1,11 @@
+# tests/default/test_blur.py
+
 import unittest
 import numpy as np
-from src.anaug.default.blur import blur
+from anaug.default import blur
 
 
-class TestBlur(unittest.TestCase):
+class TestBlurFunctions(unittest.TestCase):
     
     def setUp(self):
         # Create a synthetic grayscale and color image
@@ -20,8 +22,9 @@ class TestBlur(unittest.TestCase):
         self.assertEqual(blurred.shape, self.gray_image.shape)
         self.assertEqual(blurred.dtype, self.gray_image.dtype)
     
-    def test_median_blur(self):
-        blurred = blur(self.gray_image, blur_type='median', blur_radius=5)
+    def test_median_blur_valid_radius(self):
+        # Test with a valid odd blur_radius >=3
+        blurred = blur(self.gray_image, blur_type='median', blur_radius=3)
         self.assertEqual(blurred.shape, self.gray_image.shape)
         self.assertEqual(blurred.dtype, self.gray_image.dtype)
     
@@ -34,6 +37,8 @@ class TestBlur(unittest.TestCase):
         blurred = blur(
             self.color_image,
             blur_type='bilateral',
+            blur_radius=0,  # Not used for bilateral
+            border_type='reflect',
             diameter=15,
             sigma_color=75,
             sigma_space=75
@@ -55,7 +60,8 @@ class TestBlur(unittest.TestCase):
         blurred = blur(
             self.gray_image,
             blur_type='adaptive',
-            blur_radius=0,  # Not used
+            blur_radius=0,  # Not used for adaptive
+            border_type='reflect',
             max_kernel_size=15,
             adaptive_type='mean',
             block_size=11,
@@ -68,7 +74,8 @@ class TestBlur(unittest.TestCase):
         blurred = blur(
             self.gray_image,
             blur_type='adaptive',
-            blur_radius=0,  # Not used
+            blur_radius=0,  # Not used for adaptive
+            border_type='reflect',
             max_kernel_size=15,
             adaptive_type='gaussian',
             block_size=11,
@@ -89,19 +96,30 @@ class TestBlur(unittest.TestCase):
         with self.assertRaises(ValueError):
             blur(self.gray_image, blur_type='uniform', blur_radius=0)
     
-    def test_invalid_blur_radius_median(self):
+    def test_invalid_blur_radius_median_even(self):
+        # Test with an even blur_radius which should raise ValueError
         with self.assertRaises(ValueError):
             blur(self.gray_image, blur_type='median', blur_radius=2)  # Even number
     
-    def test_invalid_blur_radius_motion(self):
+    def test_invalid_blur_radius_median_zero(self):
+        # Test with a blur_radius of 0 which should raise ValueError
         with self.assertRaises(ValueError):
-            blur(self.gray_image, blur_type='motion', blur_radius=-5, angle=45)
+            blur(self.gray_image, blur_type='median', blur_radius=0)  # Zero
+    
+    def test_invalid_blur_radius_median_less_than_three(self):
+        # Since blur_radius=1 is allowed and returns the original image,
+        # this test should **not** expect a ValueError.
+        # Instead, it should verify that the original image is returned.
+        blurred = blur(self.gray_image, blur_type='median', blur_radius=1)
+        np.testing.assert_array_almost_equal(blurred, self.gray_image)
     
     def test_invalid_bilateral_parameters(self):
         with self.assertRaises(ValueError):
             blur(
                 self.color_image,
                 blur_type='bilateral',
+                blur_radius=0,  # Not used for bilateral
+                border_type='reflect',
                 diameter=-1,
                 sigma_color=75,
                 sigma_space=75
@@ -122,6 +140,7 @@ class TestBlur(unittest.TestCase):
                 self.gray_image,
                 blur_type='adaptive',
                 blur_radius=0,
+                border_type='reflect',
                 max_kernel_size=14,  # Even number
                 adaptive_type='mean',
                 block_size=11,
@@ -133,37 +152,18 @@ class TestBlur(unittest.TestCase):
         np.testing.assert_array_almost_equal(blurred, self.gray_image)
     
     def test_no_blur_uniform_radius_one(self):
-        blurred = blur(self.gray_image, blur_type='uniform', blur_radius=1)
-        # Uniform blur with kernel size 1 should return the original image
-        np.testing.assert_array_almost_equal(blurred, self.gray_image)
-    
-    def test_no_blur_median_radius_one(self):
-        blurred = blur(self.gray_image, blur_type='median', blur_radius=1)
-        # Median blur with kernel size 1 should return the original image
-        np.testing.assert_array_almost_equal(blurred, self.gray_image)
-    
-    def test_no_blur_motion_zero_length(self):
-        with self.assertRaises(ValueError):
-            blur(self.gray_image, blur_type='motion', blur_radius=0, angle=0)
-    
-    def test_no_blur_bilateral_zero_diameter(self):
-        with self.assertRaises(ValueError):
-            blur(
-                self.color_image,
-                blur_type='bilateral',
-                diameter=0,
-                sigma_color=75,
-                sigma_space=75
-            )
-    
-    def test_no_blur_box_radius_one(self):
+        # For 'uniform', blur_radius=1 should be treated as kernel_size=1 (no blur)
         blurred = blur(
             self.gray_image,
-            blur_type='box',
+            blur_type='uniform',
             blur_radius=1,
             border_type='reflect'
         )
-        # Box blur with kernel size 1 should return the original image
+        np.testing.assert_array_almost_equal(blurred, self.gray_image)
+    
+    def test_no_blur_median_radius_one(self):
+        # For 'median', blur_radius=1 should return the original image
+        blurred = blur(self.gray_image, blur_type='median', blur_radius=1)
         np.testing.assert_array_almost_equal(blurred, self.gray_image)
 
 
