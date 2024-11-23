@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from anaug.default.blur import blur
 
 # Load a sample grayscale image
-image_path = "images/grayscale_image.jpg"
+image_path = "images/mri.jpg"
 image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
 if image is None:
     raise FileNotFoundError(f"The image at path '{image_path}' could not be loaded. Ensure the path is correct.")
