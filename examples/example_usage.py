@@ -1,7 +1,7 @@
 import cv2
 import matplotlib.pyplot as plt
 from anaug.default import scale, flip, noise, random_rotation, random_crop, intensity, elastic_deformation, occlusion, blur
-from anaug.medical.random_lesion import random_lesion
+from anaug.medical import random_lesion
 
 # Load the image
 image_path = "images/mri.jpg"
@@ -23,13 +23,13 @@ params = {
     'random_crop': {'crop_size': (0.8, 0.8), 'scaling_factor': 1.0},
     'scale': {'scale_factor': 0.8},
     'random_lesion': {  # Added parameters for random lesion
-        'intensity_range': (0.3, 0.7),
-        'size_range': (10, 50),
+        'intensity_range': (0.3, 0.5),
+        'size_range': (10, 20),
         'shape': 'circle',  # Options: 'circle', 'ellipse', 'irregular'
         'location': None,  # Set to None for random locations
         'texture_strength': 0.5,
-        'num_lesions': 1,
-        'blending_mode': 'additive',  # Options: 'additive', 'overlay'
+        'num_lesions': 2,
+        'blending_mode': 'overlay',  # Options: 'additive', 'overlay'
         'seed': 42  # For reproducibility; set to None for randomness
     }
 }
