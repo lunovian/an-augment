@@ -6,7 +6,6 @@ from .crop import crop
 from .elastic_deformation import elastic_deformation
 from .flip import flip
 from .intensity import intensity
-from .occlusion import occlusion
 from .random_crop import random_crop
 from .random_rotation import random_rotation
 from .rotate import rotate
