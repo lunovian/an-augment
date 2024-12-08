@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from src.anaug.default.noise import noise
+from src.anaug.default import noise
 
 
 class TestNoise(unittest.TestCase):

@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from src.anaug.default.flip import flip
+from src.anaug.default import flip
 
 
 class TestFlip(unittest.TestCase):

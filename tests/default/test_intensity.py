@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from src.anaug.default.intensity import intensity
+from src.anaug.default import intensity
 
 
 class TestIntensityScaling(unittest.TestCase):

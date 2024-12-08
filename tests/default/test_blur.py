@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from src.anaug.default.blur import blur
+from src.anaug.default import blur
 
 
 class TestBlur(unittest.TestCase):
