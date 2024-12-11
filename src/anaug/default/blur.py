@@ -1,3 +1,24 @@
+"""
+Image Blurring Module
+
+This module provides functions to apply various blur effects to images, including Gaussian blur, uniform blur, median blur, and motion blur. These functions can handle both 2D (grayscale) and 3D (color) images, making them versatile for different image processing tasks.
+
+Functions:
+- motion_blur: Applies motion blur to an image.
+- blur: General blur function supporting multiple types of blur.
+
+Usage Examples:
+------------
+>>> import numpy as np
+>>> from your_module_path import blur
+>>> # Create a sample image
+>>> image = np.random.rand(128, 128, 3)
+>>> # Apply Gaussian blur
+>>> blurred_image = blur(image, blur_type='gaussian', blur_radius=2)
+>>> # Apply motion blur
+>>> motion_blurred = blur(image, blur_type='motion', blur_radius=5, length=10, angle=45)
+"""
+
 from scipy.ndimage import gaussian_filter, uniform_filter, median_filter
 import numpy as np
 import cv2

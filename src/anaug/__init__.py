@@ -4,7 +4,6 @@ from .default.elastic_deformation import elastic_deformation
 from .default.flip import flip
 from .default.intensity import intensity
 from .default.noise import noise
-from .default.occlusion import occlusion
 from .default.random_rotation import random_rotation
 from .default.rotate import rotate
 from .default.scale import scale
