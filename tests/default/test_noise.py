@@ -79,8 +79,6 @@ class TestNoise(unittest.TestCase):
         self.assertTrue(np.all(noisy_image >= 0) and np.all(noisy_image <= 255))
 
         # Statistical validation
-        original_mean = np.mean(self.gray_image_uint8)
-        noisy_mean = np.mean(noisy_image)
         original_std = np.std(self.gray_image_uint8)
         noisy_std = np.std(noisy_image)
         # Since original image has inherent variance, the expected std increases quadratically
