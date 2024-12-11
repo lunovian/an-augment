@@ -2,7 +2,6 @@
 
 import unittest
 import numpy as np
-from scipy.ndimage import map_coordinates
 from src.anaug.default import elastic_deformation
 
 

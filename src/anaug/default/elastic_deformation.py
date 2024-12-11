@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.ndimage import gaussian_filter, map_coordinates
-from typing import Optional, Tuple, Union
+from typing import Optional, Union
 
 
 def elastic_deformation(

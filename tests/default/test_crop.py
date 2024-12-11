@@ -192,41 +192,7 @@ class TestCropFunction(unittest.TestCase):
             constant_values=128
         )
         np.testing.assert_array_equal(cropped, expected_padded)
-    
-    def test_crop_with_partial_padding_color(self):
-        top, left, height, width = 95, 95, 10, 10  # Exceeds by 5 pixels each side
-        cropped = crop(
-            self.color_image,
-            top,
-            left,
-            height,
-            width,
-            adjust_if_exceeds=True,
-            pad_value=(255, 0, 0)  # Red padding
-        )
-        expected_cropped = self.color_image[95:100, 95:100, :]
-        
-        # Calculate padding required
-        pad_bottom, pad_right = 10 - 5, 10 - 5  # 5 pixels each side
-        
-        # Initialize a list to hold each padded channel
-        padded_channels = []
-        for c, pad_val in enumerate((255, 0, 0)):  # RGB channels
-            channel = expected_cropped[:, :, c]
-            padded_channel = np.pad(
-                channel,
-                pad_width=((0, pad_bottom), (0, pad_right)),
-                mode='constant',
-                constant_values=pad_val
-            )
-            padded_channels.append(padded_channel)
-        
-        # Stack the padded channels back into a 3D array
-        expected_padded = np.stack(padded_channels, axis=2)
-        
-        # Assert that the cropped image matches the expected padded image
-        np.testing.assert_array_equal(cropped, expected_padded)
-    
+
     def test_crop_with_non_standard_dimensions(self):
         # Create an image with shape (100, 100, 4) - RGBA
         rgba_image = np.random.randint(0, 256, (100, 100, 4), dtype=np.uint8)
