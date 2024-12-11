@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from src.anaug.default.scale import scale
+from src.anaug.default import scale
 
 class TestScale(unittest.TestCase):
     """Test cases for the scale augmentation function"""
