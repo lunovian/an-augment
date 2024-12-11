@@ -1,8 +1,10 @@
 from setuptools import setup, find_packages
+import setuptools_scm
 
 setup(
     name="anaug",
-    version="0.1.1",
+    use_scm_version=True,  # This automatically uses git tag for version
+    setup_requires=["setuptools>=38.6.0", "setuptools_scm"],
     description="AnAugment: A Python library for diverse data augmentation.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
