@@ -16,6 +16,7 @@ jobs:
 
       # Cache jq
       - name: Cache jq installation
+        id: cache
         uses: actions/cache@v3
         with:
           path: /usr/local/bin/jq
