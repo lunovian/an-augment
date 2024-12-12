@@ -1,18 +1,10 @@
 from setuptools import setup, find_packages
 
-# Dynamically read the version from the package
-def get_version():
-    version_file = "src/anaug/version.py"
-    with open(version_file) as f:
-        for line in f:
-            if line.startswith("__version__"):
-                delim = '"' if '"' in line else "'"
-                return line.split(delim)[1]
-    raise RuntimeError("Version not found.")
+__version__ = "0.1.0"
 
 setup(
     name="anaug",
-    version=get_version(),  # Use the dynamically read version
+    version=__version__,
     description="AnAugment: A Python library for diverse data augmentation.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
