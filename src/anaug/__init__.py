@@ -25,5 +25,5 @@ __all__ = [
     "rotate",
     "scale",
     "random_lesion",
-    "version"
+    "__version__",
 ]
