@@ -1,3 +1,5 @@
+from .version import __version__
+
 from .default.blur import blur
 from .default.crop import crop
 from .default.elastic_deformation import elastic_deformation
@@ -23,4 +25,5 @@ __all__ = [
     "rotate",
     "scale",
     "random_lesion",
+    "version"
 ]

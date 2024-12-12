@@ -1,10 +1,18 @@
 from setuptools import setup, find_packages
-import setuptools_scm
+
+# Dynamically read the version from the package
+def get_version():
+    version_file = "src/anaug/version.py"
+    with open(version_file) as f:
+        for line in f:
+            if line.startswith("__version__"):
+                delim = '"' if '"' in line else "'"
+                return line.split(delim)[1]
+    raise RuntimeError("Version not found.")
 
 setup(
     name="anaug",
-    use_scm_version=True,  # This automatically uses git tag for version
-    setup_requires=["setuptools>=38.6.0", "setuptools_scm"],
+    version=get_version(),  # Use the dynamically read version
     description="AnAugment: A Python library for diverse data augmentation.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
