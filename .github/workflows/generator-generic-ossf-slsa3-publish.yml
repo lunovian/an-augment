@@ -35,12 +35,16 @@ jobs:
           set -euxo pipefail
 
           files=$(ls artifact*)
-          hashes=$(sha256sum $files | base64 | tr -d '\n')
+          hashes=$(sha256sum $files | awk '{print $1}' | jq -R -s -c 'split("\n")[:-1]')
 
           # Debugging hashes
           echo "Generated hashes: $hashes"
 
           echo "digests=$hashes" >> "${GITHUB_OUTPUT}"
+
+      # Step 4: Install jq (optional)
+      - name: Install jq
+        run: sudo apt-get install -y jq
 
   provenance:
     needs: [build]
