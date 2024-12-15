@@ -1,137 +1,93 @@
-# AN-Augment
-[![package-publish](https://github.com/lunovian/an-augment/actions/workflows/package-publish.yml/badge.svg)](https://github.com/lunovian/an-augment/actions/workflows/package-publish.yml)
-[![pages-publish](https://github.com/lunovian/an-augment/actions/workflows/pages-publish.yml/badge.svg)](https://github.com/lunovian/an-augment/actions/workflows/pages-publish.yml)
+# ANAugment (Advanced and Novel Augmentation)
 
-**AN-Augment** (**Advanced and Novel Augmentation**) is a Python library offering advanced and innovative data augmentation techniques for diverse domains, from medical imaging to environmental data. It enhances dataset diversity, improving model robustness and performance across applications.
+ANAugment is a Python library for advanced and novel data augmentation, blending traditional techniques such as cropping and blurring with cutting-edge generative AI methods like style transfer, image inpainting, and latent space interpolation. It empowers users to enhance data diversity, improving the training and performance of machine learning models across images, text, and tabular datasets.
 
-## Augmentations
+---
 
-**AN-Augment** provides a wide range of built-in augmentations to enhance your datasets across multiple domains:
+## Features
 
-### **Core Features:**
+### Traditional Data Augmentation
 
-- **Fine-Grained Control**: Adjustable parameters for precise transformation intensity and probability.
-- **Batch Processing & Randomization**: Apply augmentations to image/data batches with flexible randomization settings.
-- **Visualization Tools**: Easily visualize original and augmented data side-by-side for quick quality checks.
+- Blur
+- Crop
+- Elastic Deformation
+- Flip
+- Intensity
+- Noise
+- Random rotation
+- Rotation
+- Scale
 
-### **Multi-Domain Augmentations:**
+### Generative AI-Based Augmentation
 
-- **Medical Imaging**:
-  - [ ] **Augment Metadata for Labels and Masks**: Streamline label and mask processing during augmentation.
-  - [ ] **Add GAN-Based Synthetic Image Generation**: Generate synthetic medical images to enrich datasets.
-  - [ ] **Random Block Masks for Occlusion Simulation**: Simulate occlusions for robustness testing.
-  - [ ] **3D Elastic Transformations for Volumetric Data**: Apply elastic deformations for 3D medical volumes.
-  - [ ] **Fourier Transform Filters for Frequency-Based Augmentation**: Enhance feature learning with frequency-domain transformations.
-  - [ ] **Contrast-Enhanced Region Augmentation**: Improve model sensitivity to contrast-specific areas.
-  - [ ] **Simulated Lesions/Anomalies Augmentation**: Add realistic lesions to improve rare anomaly detection.
+- **Style Transfer**: Apply artistic or domain-specific styles to images.
+- **Image Inpainting**: Fill missing regions or simulate occlusions with AI-generated content.
+- **Latent Space Interpolation**: Generate intermediate samples using GANs or VAEs.
+- **Synthetic Data Generation**: Create new samples for image, text, or tabular datasets using generative models.
 
-- **Mechanical Simulations**:
-  - **Add Stress-Based Transformations**: Simulate structural stress conditions for robustness.
-  - **Dynamic Scaling and Rotation**: Introduce scaling and rotational effects to mechanical structures.
-  - **Apply Structural Noise Augmentation**: Add noise specific to mechanical patterns to enrich datasets.
-  - **Load Simulation Augmentation**: Simulate load-based distortions and deformations.
-
-- **Environmental Data**:
-  - **Simulate Cloud Occlusions**: Apply cloud-like occlusions for satellite and environmental imagery.
-  - **Add Noise for Sensor Simulation**: Introduce sensor-based noise patterns for realism.
-  - **Spatial Scaling and Shifting**: Apply shifts and scaling to spatial data.
-  - **Enhance Terrain Patterns**: Augment terrain-based features with synthetic distortions.
-
-- **Water Systems**:
-  - **Wave Simulation Augmentation**: Generate wave-like distortions for water bodies.
-  - **Flow Distortion Augmentation**: Simulate flow patterns in water datasets.
-  - **Add Scaling Factors for Dynamic Modeling**: Apply scaling for dynamic hydrodynamic modeling.
-  - **Turbulence Simulation**: Introduce turbulence effects for water-based data.
+---
 
 ## Installation
 
-To install **AN-Augment**, use pip:
-
-```bash
-pip install an-augment
-```
-
-Alternatively, you can install the latest development version from the repository:
+Install ANAugment from source:
 
 ```bash
 git clone https://github.com/lunovian/an-augment.git
-cd an-augment
-pip install -r requirements.txt
+cd an_augment
+pip install .
 ```
 
-## Usage
+---
 
-Here’s a quick example of how to use **AN-Augment** for medical imaging augmentations:
+## Quick Start
+
+Here is an example of how to use ANAugment:
 
 ```python
-import cv2
-import matplotlib.pyplot as plt
-from an_augment.default import scale, flip, noise, random_rotation, random_crop, intensity, elastic_deformation, occlusion, blur
+from anaug import default, generative as d, g
 
-# Load the image
-image_path = "images/mri.jpg"
-image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
-if image is None:
-    raise FileNotFoundError(f"The image at path '{image_path}' could not be loaded. Ensure the path is correct.")
+# Apply basic transformations
+cropped_image = d.crop(image, box=(50, 50, 200, 200))
+blurred_image = d.blur(image, sigma=2)
 
-image = image / 255.0  # Normalize the image to [0, 1]
-
-# Define augmentation parameters
-params = {
-    'blur': {'blur_radius': 2},
-    'elastic_deformation': {'alpha': 30, 'sigma': 4},
-    'flip': {'flip_horizontal': True, 'flip_vertical': False},
-    'intensity': {'brightness_factor': 1.2, 'contrast_factor': 1.3},
-    'noise': {'noise_type': 'gaussian', 'noise_intensity': 0.1},
-    'occlusion': {'mask_shape': 'rectangle', 'mask_size_range': (0.1, 0.2)},
-    'random_rotation': {'angle_range': (-15, 15)},
-    'random_crop': {'crop_size': (0.8, 0.8), 'scaling_factor': 1.0},
-    'scale': {'scale_factor': 0.8}
-}
-
-# Apply augmentations (manually applying each augmentation)
-try:
-    augmented_image = blur(image, **params['blur'])
-    augmented_image = elastic_deformation(image, **params['elastic_deformation'])
-    augmented_image = flip(augmented_image, **params['flip'])
-    augmented_image = intensity(augmented_image, **params['intensity'])
-    augmented_image = noise(augmented_image, **params['noise'])
-    augmented_image = occlusion(augmented_image, **params['occlusion'])
-    augmented_image = random_rotation(augmented_image, **params['random_rotation'])
-    augmented_image = random_crop(augmented_image, **params['random_crop'])
-    augmented_image = scale(augmented_image, **params['scale'])
-except Exception as e:
-    raise RuntimeError(f"An error occurred while applying augmentations: {e}")
-
-# Display original and augmented images
-plt.figure(figsize=(12, 6))
-plt.subplot(1, 2, 1)
-plt.title("Original Image")
-plt.imshow(image, cmap="gray")
-plt.axis("off")
-
-plt.subplot(1, 2, 2)
-plt.title("Augmented Image")
-plt.imshow(augmented_image, cmap="gray")
-plt.axis("off")
-
-plt.tight_layout()
-plt.show()
-
+# Apply generative AI augmentation
+styled_image = g.style_transfer(image, style="VanGogh")
+inpainted_image = g.inpaint(image, mask)
 ```
 
-Here is an example of the original image and the augmented result:
+For more examples, check the [`examples`](examples/) folder.
 
-| Original Image                     | Augmented Image                     |
-|------------------------------------|-------------------------------------|
-| ![Original Image](images/original_image.png)  | ![Augmented Image](images/augmented_image.png) |
+---
 
-For other domains (e.g., mechanical or environmental), the process is similar—just import the relevant augmentation module (e.g., `MechanicalAugmentation`, `EnvironmentalAugmentation`, etc.).
+## Documentation
+
+Detailed documentation is available in the [`docs`](docs/) folder.
+
+- [Installation Guide](docs/SETUP_GUIDE.md)
+- [API Reference](docs/API_REFERENCE.md)
+- [Tutorials](docs/TUTORIALS.md)
+
+---
 
 ## Contributing
 
-We welcome contributions! Fork the repository, make your changes, and submit a pull request. You can contribute new augmentation types or improve existing ones.
+We welcome contributions from the community! If you'd like to contribute:
+
+1. Fork the repository.
+2. Create a new branch.
+3. Make your changes and test them.
+4. Submit a pull request.
+
+Please see our [CONTRIBUTING.md](docs/CONTRIBUTING.md) for more information.
+
+---
 
 ## License
 
-**AN-Augment** is licensed under the Apache-2.0 License.
+This project is licensed under the Apache-2.0 License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## Acknowledgments
+
+Special thanks to the open-source projects and pre-trained models that make generative AI augmentation possible.

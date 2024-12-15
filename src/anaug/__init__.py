@@ -8,7 +8,7 @@ from .default.random_rotation import random_rotation
 from .default.rotate import rotate
 from .default.scale import scale
 
-from .medical.random_lesion import random_lesion
+from .generative.random_lesion import random_lesion
 
 # Define all accessible modules and functions
 __all__ = [
