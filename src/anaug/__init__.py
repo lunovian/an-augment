@@ -8,7 +8,7 @@ from .default.random_rotation import random_rotation
 from .default.rotate import rotate
 from .default.scale import scale
 
-from .generative.random_lesion import random_lesion
+from .style_transform import vgg16
 
 # Define all accessible modules and functions
 __all__ = [
@@ -22,5 +22,5 @@ __all__ = [
     "random_rotation",
     "rotate",
     "scale",
-    "random_lesion",
+    "vgg16"
 ]
